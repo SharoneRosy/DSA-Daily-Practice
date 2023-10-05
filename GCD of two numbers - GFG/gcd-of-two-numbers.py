@@ -2,13 +2,10 @@
 
 class Solution:
     def gcd(self, A, B):
-        while (A!=B):
-            if (A>B):
-                A=A-B
-            else:
-                B=B-A
-        return A
-
+        if (B==0):
+            return A
+        else:
+            return self.gcd(B,A%B)
 
 #{ 
  # Driver Code Starts
