@@ -21,7 +21,7 @@ class Solution
     }
     void leftRotate(long arr[], int k,int n)
     {
-        k=k%n;
+       k=k%n;
         reverse(arr,0,k-1);
         reverse(arr,k,n-1);
         reverse(arr,0,n-1);
