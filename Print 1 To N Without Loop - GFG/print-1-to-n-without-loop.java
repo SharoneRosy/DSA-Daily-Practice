@@ -46,9 +46,9 @@ class Solution
   public void printNos(int N)
     {
         //Your code 
-        if(N==0)return;
+        if (N==0) return;
         printNos(N-1);
-        System.out.print(N+" ");
+        System.out.print(N +" ");
     }
 }
 
