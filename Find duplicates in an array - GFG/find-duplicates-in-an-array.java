@@ -26,15 +26,15 @@ class Solution {
     public static ArrayList<Integer> duplicates(int arr[], int n) {
         // code here
         
-        Arrays.sort(arr);
+        HashSet<Integer> d=new HashSet<>();
         HashSet<Integer> set=new HashSet<>();
         ArrayList<Integer> l=new ArrayList<>();
-        for(int i=1;i<n;i++){
-            if (arr[i]==arr[i-1]){
-                set.add(arr[i]);
+        for(int i=0;i<n;i++){
+            if (set.add(arr[i])==false){
+                d.add(arr[i]);
             }
         }
-        l.addAll(set);
+        l.addAll(d);
         if(l.isEmpty()){
             l.add(-1);
         }
