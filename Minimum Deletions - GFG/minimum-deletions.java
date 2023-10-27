@@ -27,19 +27,21 @@ class Solution{
     static int minimumNumberOfDeletions(String S) {
         //your code her
         int n=S.length();
-        StringBuilder sb=new StringBuilder(S);
-        sb.reverse();
-        int dp[][]=new int[n+1][n+1];
-        for(int i=1;i<=n;i++){
-            for(int j=1;j<=n;j++){
-                if(S.charAt(i-1)==sb.charAt(j-1))
-                dp[i][j]=1+dp[i-1][j-1];
-                else
-                dp[i][j]=Math.max(dp[i-1][j],dp[i][j-1]);
-            }
-        }
-        return n-dp[n][n];
+        Integer [][]dp=new Integer[n][n];
+        return n-lps(S,0,n-1,dp);
         
+    }
+    public static int lps(String s, int start,int end,Integer [][] dp){
+        if(start>end)
+        return 0;
+        if(start==end)
+        return 1;
+        if(dp[start][end]==null){
+            if(s.charAt(start)==s.charAt(end))
+            dp[start][end]=2+lps(s,start+1,end-1,dp);
+            else
+            dp[start][end]=Math.max(lps(s,start+1,end,dp),lps(s,start,end-1,dp));
+        }return dp[start][end];
     }
     
 }
