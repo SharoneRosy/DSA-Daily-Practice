@@ -67,11 +67,12 @@ class MyStack
     int pop() 
     {
         // Add your code here
-        if(top==null){
+        if (top==null){
             return -1;
         }int t=top.data;
         top=top.next;
         return t;
+        
         
     }
 }
