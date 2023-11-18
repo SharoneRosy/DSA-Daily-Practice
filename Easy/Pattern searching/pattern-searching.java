@@ -34,16 +34,15 @@ class Solution {
 
     public static boolean searchPattern(String str, String pat) {
 
-        // code here
-
-        if(str.contains(pat))
-
-            return true;
-
-            
-
-        return false;
-
+    int p=pat.length()-1;
+    for(int i=str.length()-1;i>=0;i--){
+        if(str.charAt(i)==pat.charAt(p)){
+            p--;
+            if(p<0) return true;
+        }else {
+            p=pat.length()-1;
+        }
+    }return false;
     }
 
 }
