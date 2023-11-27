@@ -35,36 +35,27 @@ class Solution {
     // Function to detect cycle in a directed graph.
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
         // code here;
+        int []inDegree=new int[V];
+        for(int i=0;i<inDegree.length;i++)
+            for(int j:adj.get(i))
+                inDegree[j]++;
         
-        boolean visited[]=new boolean[V];
-        boolean stack[]=new boolean[V];
-        for(int i=0;i<V;i++){
-            if(!visited[i]){
-                if(isCycleUtil(adj,visited,stack,i))
-                return true;
-            }
-        }
-            return false;
-        
-    }
-    
-    private boolean isCycleUtil(ArrayList<ArrayList<Integer>> adj,boolean visited[],boolean stack[],int curr)
-    {
-        if(stack[curr])
-        return true;
-        
-        if(visited[curr])
-        return false;
-        
-        visited[curr] = true;
-        stack[curr] = true;
-        for(int child : adj.get(curr))
+        ArrayDeque<Integer> mq=new ArrayDeque<>();
+        for(int i=0;i<inDegree.length;i++)
+            if(inDegree[i]==0)
+                mq.add(i);
+        int count=0;
+        while(mq.size()!=0)
         {
-            if(isCycleUtil(adj,visited,stack,child))
-                return true;
+            int rem=mq.remove();
+            count++;
+            for(int i:adj.get(rem))
+            {
+                inDegree[i]--;
+                if(inDegree[i]==0)
+                    mq.add(i);
+            }
             
-        }
-        stack[curr] = false;
-        return false;
+        }return count!=V?true:false;
     }
 }
