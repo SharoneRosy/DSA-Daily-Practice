@@ -37,21 +37,15 @@ class GFG
 
 class Solution
 {
-    public boolean check(int start,int V,ArrayList<ArrayList<Integer>>adj,int[] color){
-        Queue<Integer>q=new LinkedList<>();
-        q.add(start);
-        while(!q.isEmpty()){
-            int node=q.poll();
-            for(int neg:adj.get(node)){
-                if(color[neg]==-1){
-                    color[neg]=1-color[node];
-                    q.add(neg);
-                }else if(color[neg]==color[node]){
-                    return false;
-                }
-            }
-        }
-        return true;
+    public boolean dfs(int node,int col,ArrayList<ArrayList<Integer>>adj,int[] color){
+       color[node]=col;
+       for(int neg:adj.get(node)){
+           if(color[neg]==-1){
+               if(dfs(neg,1-col,adj,color)==false) return false;
+           }else if(color[neg]==color[node]){
+               return false;
+           }
+       }return true;
     }
     public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
     {
@@ -62,7 +56,7 @@ class Solution
         }
         for(int i=0;i<V;i++){
             if(color[i]==-1){
-                if(check(i,V,adj,color)==false) return false;
+                if(dfs(i,0,adj,color)==false) return false;
             }
         }
         return true;
