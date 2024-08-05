@@ -116,36 +116,42 @@ class GfG {
 
 //User function Template for Java
 
-class Pair{
-    Node node;
-    int hd;
-    public Pair(Node node,int hd){
-        this.node=node;
-        this.hd=hd;
-    }
-}
+
 class Solution
 {
+    
+    public class Pair{
+        Node node;
+        int hd;
+        Pair(Node node,int hd){
+            this.node=node;
+            this.hd=hd;
+        }
+    }
     //Function to return a list containing the bottom view of the given tree.
     public ArrayList <Integer> bottomView(Node root)
     {
         // Code here
-       ArrayList<Integer>ans=new ArrayList<>();
-       if(root==null) return ans;
-       Map<Integer,Integer>map=new TreeMap<>();
-       Queue<Pair>q=new LinkedList<>();
-       q.add(new Pair(root,0));
-       while(!q.isEmpty()){
-           Pair p=q.remove();
-           Node curr=p.node;
-           int dis=p.hd;
-           map.put(dis,curr.data);
-           if(curr.left!=null)  q.add(new Pair(curr.left,dis-1));
-           if(curr.right!=null) q.add(new Pair(curr.right,dis+1));
-       }
-       for(Map.Entry<Integer,Integer>e:map.entrySet()){
-           ans.add(e.getValue());
-       }
-       return ans;
+        ArrayList<Integer>ans=new ArrayList<>();
+        TreeMap<Integer,Integer>map=new TreeMap<>();
+        Queue<Pair>q=new LinkedList<>();
+        q.add(new Pair(root,0));
+        while(!q.isEmpty()){
+            Pair p=q.poll();
+            Node curr=p.node;
+            int h=p.hd;
+            map.put(h,curr.data);
+            if(curr.left!=null) {
+                q.add(new Pair(curr.left,h-1));
+            }
+            if(curr.right!=null){
+                q.add(new Pair(curr.right,h+1));
+            }
+        }
+        
+        for(Map.Entry<Integer,Integer>e:map.entrySet()){
+            ans.add(e.getValue());
+        }
+        return ans;
     }
 }
